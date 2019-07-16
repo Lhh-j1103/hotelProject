@@ -3,7 +3,7 @@ package com.hotel.entity;
 
 public class Role {
 
-  private long roleI;
+  private long roleId;
   private String roleName;
 
 

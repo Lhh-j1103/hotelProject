@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hotel.dao.GuestRoomMapper">
+
+    <resultMap id="baseGuestRoom" type="com.hotel.entity.Guestroom">
+        <id column="guestRoomId" property="guestRoomId" ></id>
+        <result column="roomStatus" property="roomStatus"></result>
+        <result column="guestTypeId" property="guestTypeId"></result>
+    </resultMap>
+
+    <resultMap id="guestRoomAndGuestType" extends="baseGuestRoom" type="com.hotel.entity.Guestroom">
+        <association property="guestroomtype" javaType="com.hotel.entity.GuestRoomType">
+            <id column="guestTypeId" property="guestTypeId"></id>
+            <result column="guestTypeName" property="guestTypeName"></result>
+            <result column="quantity" property="quantity"></result>
+            <result column="guestInfo" property="guestInfo"></result>
+            <result column="guestPrice" property="guestPrice"></result>
+            <result column="guestImage" property="guestImage"></result>
+        </association>
+    </resultMap>
+
+    <select id="findGuestRoom" resultMap="guestRoomAndGuestType" >
+        SELECT m.`guestRoomId`,m.`roomStatus` FROM guestroom m
+        LEFT JOIN guestroomtype t ON m.`guestTypeId` = t.`guestTypeId`
+    </select>
+</mapper>
